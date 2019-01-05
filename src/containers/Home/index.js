@@ -29,9 +29,9 @@ class Home extends Component{
           <Row gutter={16}>
             {this.state.categories.map((category, index) => {
               if (index < 3) {
-                return <Col span={8} key={category.ID}>
-                  <Link to={`/produse?categorie=${category.ID}`}>
-                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.NAME)}</Card>
+                return <Col span={8} key={category.id}>
+                  <Link to={`/produse?categorie=${category.id}`}>
+                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.name)}</Card>
                   </Link>
                 </Col>;
               }
@@ -40,9 +40,9 @@ class Home extends Component{
           <Row gutter={16}>
             {this.state.categories.map((category, index) => {
               if (index < 6 && index > 2) {
-                return <Col span={8} key={category.ID}>
-                  <Link to={`/produse?categorie=${category.ID}`}>
-                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.NAME)}</Card>
+                return <Col span={8} key={category.id}>
+                  <Link to={`/produse?categorie=${category.id}`}>
+                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.name)}</Card>
                   </Link>
                 </Col>;
               }
@@ -51,9 +51,9 @@ class Home extends Component{
           <Row gutter={16}>
             {this.state.categories.map((category, index) => {
               if (index < 9 && index > 5) {
-                return <Col span={8} key={category.ID}>
-                  <Link to={`/produse?categorie=${category.ID}`}>
-                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.NAME)}</Card>
+                return <Col span={8} key={category.id}>
+                  <Link to={`/produse?categorie=${category.id}`}>
+                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.name)}</Card>
                   </Link>
                 </Col>;
               }
@@ -62,9 +62,9 @@ class Home extends Component{
           <Row gutter={16}>
             {this.state.categories.map((category, index) => {
               if (index < 12 && index > 8) {
-                return <Col span={8} key={category.ID}>
-                  <Link to={`/produse?categorie=${category.ID}`}>
-                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.NAME)}</Card>
+                return <Col span={8} key={category.id}>
+                  <Link to={`/produse?categorie=${category.id}`}>
+                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.name)}</Card>
                   </Link>
                 </Col>;
               }
@@ -73,9 +73,9 @@ class Home extends Component{
           <Row gutter={16}>
             {this.state.categories.map((category, index) => {
               if (index < 15 && index > 11) {
-                return <Col span={8} key={category.ID}>
-                  <Link to={`/produse?categorie=${category.ID}`}>
-                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.NAME)}</Card>
+                return <Col span={8} key={category.id}>
+                  <Link to={`/produse?categorie=${category.id}`}>
+                    <Card style={{height: '100px', margin: '5px'}}>{capitalize(category.name)}</Card>
                   </Link>
                 </Col>;
               }
