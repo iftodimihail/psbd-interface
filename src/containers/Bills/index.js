@@ -168,7 +168,7 @@ class Home extends Component{
         </Modal>
         <PageHeader>Facturi</PageHeader>
         <ContentHolder>
-          <Table dataSource={this.state.dataSource} columns={this.columns} />
+          <Table dataSource={this.state.dataSource} columns={this.columns} pagination={{pageSize: 6}}/>
         </ContentHolder>
       </LayoutWrapper>
     )
