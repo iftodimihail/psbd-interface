@@ -11,7 +11,9 @@ class Home extends Component{
   state = {
     dataSource: null,
     fetching: true,
-    showModal: false
+    showModal: false,
+    okText: null,
+    isAddToStock: true
   };
 
   componentDidMount(){
@@ -25,7 +27,9 @@ class Home extends Component{
       .catch(() => this.setState({fetching: false}));
   }
 
-  handleOpenModal = (id) => this.setState({showModal: true, productId: id});
+  handleAddModal = (id) => this.setState({showModal: true, productId: id, okText: "Adaugă în stoc", isAddToStock: true});
+
+  handleSubtractModal = (id) => this.setState({showModal: true, productId: id, okText: "Scoate din stoc", isAddToStock: false});
 
   handleCancel = () => this.setState({showModal: false});
 
@@ -36,7 +40,7 @@ class Home extends Component{
         postBill({
           billDate: new Date(),
           otherPartyName: values.name,
-          billType: "incoming",
+          billType: this.state.isAddToStock ? "incoming" : "outgoing",
           billedItems: [
             {
               productId: this.state.productId,
@@ -54,48 +58,49 @@ class Home extends Component{
     });
   };
 
-  columns = [{
-    title: 'Produs',
-    dataIndex: 'name',
-    key: 'product',
-    render: (productName) => <p>{capitalize(productName)}</p>,
-    width: '300px'
-  },{
-    title: 'Stoc',
-    dataIndex: 'stock',
-    key: 'stock',
-    render: (stock) => <p>{stock}</p>,
-    width: '300px'
-  },{
-    title: 'Pret',
-    dataIndex: 'price',
-    key: 'price',
-    render: (productPrice) => <p>{`${productPrice.toFixed(2)} LEI`}</p>,
-    width: '50%'
-  }, {
-    title: 'Add',
-    key: 'add',
-    dataIndex: 'id',
-    render: (id) => <a onClick={() => this.handleOpenModal(id)}><Icon type="plus-circle" /></a>,
-    sorter: false,
-    width: '200px'
-  }, {
-    title: 'Edit',
-    key: 'edit',
-    render: () => <a><Icon type="edit" /></a>,
-    sorter: false,
-    width: '200px'
-  }, {
-    title: 'Delete',
-    key: 'delete',
-    render: () => <a><Icon type="delete" /></a>,
-    sorter: false,
-    width: '200px'
-  }];
+  columns = [
+    {
+      title: 'Produs',
+      dataIndex: 'name',
+      key: 'product',
+      render: (productName) => <p>{capitalize(productName)}</p>,
+      width: '300px'
+    },
+    {
+      title: 'Stoc',
+      dataIndex: 'stock',
+      key: 'stock',
+      render: (stock) => <p>{stock}</p>,
+      width: '300px'
+    },
+    {
+      title: 'Pret',
+      dataIndex: 'price',
+      key: 'price',
+      render: (productPrice) => <p>{`${productPrice.toFixed(2)} LEI`}</p>,
+      width: '50%'
+    },
+    {
+      title: 'Adaugă îm stoc',
+      key: 'add',
+      dataIndex: 'id',
+      render: (id) => <a onClick={() => this.handleAddModal(id)}><Icon type="plus-circle" /></a>,
+      sorter: false,
+      width: '200px'
+    },
+    {
+      title: 'Scoate din stoc',
+      key: 'subtract',
+      dataIndex: 'id',
+      render: (id) => <a onClick={() => this.handleSubtractModal(id)}><Icon type="minus-circle" /></a>,
+      sorter: false,
+      width: '200px'
+    }
+  ];
 
 
   render(){
-    const { getFieldDecorator, form } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
 
     if(this.state.fetching){
       return null;
@@ -104,21 +109,22 @@ class Home extends Component{
     return(
       <LayoutWrapper>
         <Modal
-          title="Adaugă în stoc"
+          title="Actualizare stoc"
           visible={this.state.showModal}
+          okText={this.state.okText}
+          cancelText="Anulează"
           onOk={this.handleOk}
-          okText="Adaugă"
           onCancel={this.handleCancel}
         >
           <Form onSubmit={this.handleOk}>
-            <Form.Item>
+            <Form.Item label="Nume și prenume">
               {getFieldDecorator('name', {
                 rules: [{ required: true, message: 'Te rugăm să-ți introduci numele' }],
               })(
                 <Input placeholder="Nume și prenume" />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item label="Cantitate">
               {getFieldDecorator('quantity', {
                 rules: [{ required: true, message: 'Te rugăm să introduci o cantitate' }],
               })(

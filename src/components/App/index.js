@@ -9,8 +9,18 @@ const { Header, Sider, Content } = Layout;
 
 class AppLayout extends Component {
   state = {
-    collapsed: false,
+    collapsed: false
   };
+
+  selectActiveKey = () => {
+    const url = window.location.pathname;
+    const key = url.split('/')[1];
+    key === 'facturi' ? this.setState({activeKey: '2'}) :  this.setState({activeKey: '1'});
+  };
+
+  componentDidMount(){
+   this.selectActiveKey();
+  }
 
   toggle = () => {
     this.setState({
@@ -19,7 +29,6 @@ class AppLayout extends Component {
   };
 
   render() {
-
     return (
       <Layout style={{height: '100vh'}}>
         <Sider
@@ -28,7 +37,7 @@ class AppLayout extends Component {
           collapsed={this.state.collapsed}
         >
           <div className="logo"><span style={{fontSize: '22px', color: 'white', fontWeight: 'bold', fontStyle: 'italic'}}>M&M</span></div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" selectedKeys={[this.state.activeKey]} onSelect={this.selectActiveKey}>
             <Menu.Item key="1">
               <Link to='/'>
                 <Icon type="home" />
