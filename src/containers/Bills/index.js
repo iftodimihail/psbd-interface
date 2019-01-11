@@ -23,10 +23,12 @@ class Home extends Component{
 
   handleOpenModal = (id) => {
     const { form } = this.props;
-    this.setState({showModal: true, productId: id});
+    this.setState({showModal: true, billId: id});
     findBill(id)
       .then((res) => {
         const billData = res.data;
+        this.setState({productId: billData.items[0].productId});
+        console.log(billData);
         form.setFieldsValue({
           name: billData.otherPartyName,
           product: capitalize(billData.items[0].name),
@@ -43,16 +45,25 @@ class Home extends Component{
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        editBill(this.state.productId,{
+        editBill(this.state.billId,{
           otherPartyName: values.name,
           billDate: values.date,
+          billType: values.billType.toLowerCase(),
           billedItems: [
             {
-              quantity: values.quantity
+              id: this.state.billId,
+              productId: this.state.productId,
+              quantity: parseInt(values.quantity, 10)
             }
           ]
         })
-          .then((res) => console.log(res.data));
+          .then(() =>  {
+            this.setState({fetching: true, showModal: false});
+            getBills()
+              .then((res) => this.setState({dataSource: res.data, fetching: false}))
+              .catch(() => this.setState({fetching: false}));
+          })
+          .catch(() => message.error('S-a produs o eroare. Vă rugăm încercați din nou'))
       }
     });
   };
@@ -98,13 +109,6 @@ class Home extends Component{
       key: 'edit',
       dataIndex: 'id',
       render: (id) => <a onClick={() => this.handleOpenModal(id)}><Icon type="edit" /></a>,
-      sorter: false,
-      width: '200px'
-    },
-    {
-      title: 'Delete',
-      key: 'delete',
-      render: () => <a><Icon type="delete" /></a>,
       sorter: false,
       width: '200px'
     }

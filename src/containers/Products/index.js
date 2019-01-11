@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import LayoutWrapper from '../../utility/layoutWrapper';
 import PageHeader from '../../utility/pageHeader';
 import ContentHolder from '../../utility/contentHolder';
-import { Table, Icon, Modal, Form, Input, message } from 'antd';
+import { Table, Icon, Modal, Form, Input, DatePicker, message } from 'antd';
 import {getCategoryProducts} from "../../api/products";
 import {postBill} from "../../api/bills";
 import capitalize from 'capitalize';
@@ -38,7 +39,7 @@ class Home extends Component{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         postBill({
-          billDate: new Date(),
+          billDate: values.billDate,
           otherPartyName: values.name,
           billType: this.state.isAddToStock ? "incoming" : "outgoing",
           billedItems: [
@@ -129,6 +130,19 @@ class Home extends Component{
                 rules: [{ required: true, message: 'Te rugăm să introduci o cantitate' }],
               })(
                 <Input placeholder="Cantitate" type="number" min={0}/>
+              )}
+            </Form.Item>
+            <Form.Item label="Data de facturare">
+              {getFieldDecorator('billDate', {
+                rules: [{ required: true, message: 'Te rugăm să introduci data de facutrare' }],
+                initialValue: moment(new Date())
+              })(
+                <DatePicker
+                  style={{width: '100%'}}
+                  format="DD-MM-YYYY HH:mm"
+                  placeholder="Data de facutrare"
+                  showTime={{format: 'DD-MM-YYYY HH:mm'}}
+                />
               )}
             </Form.Item>
           </Form>
