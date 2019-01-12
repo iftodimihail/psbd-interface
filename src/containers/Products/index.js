@@ -54,7 +54,7 @@ class Home extends Component{
             .then((res) => this.setState({dataSource: res.data, fetching: false}))
             .catch(() => this.setState({fetching: false}));
         })
-          .catch(() => message.error('S-a produs o eroare. Vă rugăm încercați din nou'))
+          .catch(() => message.error("Eroare! Stocul nu poate avea mai putin de 0 produse"));
       }
     });
   };
@@ -82,7 +82,7 @@ class Home extends Component{
       width: '50%'
     },
     {
-      title: 'Adaugă îm stoc',
+      title: 'Adaugă în stoc',
       key: 'add',
       dataIndex: 'id',
       render: (id) => <a onClick={() => this.handleAddModal(id)}><Icon type="plus-circle" /></a>,
@@ -110,7 +110,7 @@ class Home extends Component{
     return(
       <LayoutWrapper>
         <Modal
-          title="Actualizare stoc"
+          title={this.state.isAddToStock ? "Adaugare în stoc" : "Scoatere din stoc"}
           visible={this.state.showModal}
           okText={this.state.okText}
           cancelText="Anulează"

@@ -63,7 +63,7 @@ class Home extends Component{
               .then((res) => this.setState({dataSource: res.data, fetching: false}))
               .catch(() => this.setState({fetching: false}));
           })
-          .catch(() => message.error('S-a produs o eroare. Vă rugăm încercați din nou'))
+          .catch(() => message.error("Editarea facturii aduce stocul produsului sub 0 sau comenzile deja înregistrate nu vor putea fi onorate"));
       }
     });
   };
