@@ -77,14 +77,14 @@ class Home extends Component{
       width: '300px'
     },
     {
-      title: 'Responsabil',
+      title: 'Nume operator',
       dataIndex: 'otherPartyName',
       key: 'otherPartyName',
       render: (otherPartyName) => <p>{otherPartyName}</p>,
       width: '300px'
     },
     {
-      title: 'Tip operație',
+      title: 'Operație',
       dataIndex: 'billType',
       key: 'billType',
       render: (billType) => <p>{capitalize(billType)}</p>,
@@ -105,7 +105,7 @@ class Home extends Component{
       width: '300px'
     },
     {
-      title: 'Edit',
+      title: 'Editare',
       key: 'edit',
       dataIndex: 'id',
       render: (id) => <a onClick={() => this.handleOpenModal(id)}><Icon type="edit" /></a>,
@@ -126,6 +126,7 @@ class Home extends Component{
       <LayoutWrapper>
         <Modal
           title="Actualizare factură"
+          centered
           visible={this.state.showModal}
           okText="Actualizează"
           cancelText="Anulează"

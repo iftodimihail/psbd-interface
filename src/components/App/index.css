@@ -15,6 +15,33 @@
     justify-content: center;
     align-items: center;
     height: 40px;
-    background: rgba(255,255,255,.2);
     margin: 16px;
+}
+
+.ant-table-thead > tr > th, 
+.ant-modal-header,
+.ant-btn-primary
+ {
+    background: rgba(0, 21, 41, 0.9);
+    color: white;
+  }
+  
+  .ant-modal-title, .ant-modal-close-x {
+      color: white;
+  }
+
+
+.ant-btn-primary {
+    border: 1px solid rgba(0, 21, 41, 0.9);
+}
+
+.ant-btn:hover, .ant-btn:focus {
+    color: rgba(0, 21, 41, 0.9);
+    background: white;
+    border: 1px solid rgba(0, 21, 41, 0.9);
+}
+
+.ant-input:hover,
+.ant-calendar-picker:hover .ant-calendar-picker-input:not(.ant-input-disabled){
+    border: 1px solid rgba(0, 21, 41, 0.9);
 }

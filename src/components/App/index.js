@@ -33,10 +33,9 @@ class AppLayout extends Component {
       <Layout style={{height: '100vh'}}>
         <Sider
           trigger={null}
-          collapsible
-          collapsed={this.state.collapsed}
+          collapsed={true}
         >
-          <div className="logo"><span style={{fontSize: '22px', color: 'white', fontWeight: 'bold', fontStyle: 'italic'}}>M&M</span></div>
+          <div className="logo"/>
           <Menu theme="dark" mode="inline" selectedKeys={[this.state.activeKey]} onSelect={this.selectActiveKey}>
             <Menu.Item key="1">
               <Link to='/'>
@@ -53,13 +52,7 @@ class AppLayout extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }}>
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggle}
-            />
-          </Header>
+          <Header style={{ background: '#fff', paddingRight: 24, fontSize: 24, color: "#111" }}>Proiect PSBD</Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             <AppRouter />
           </Content>

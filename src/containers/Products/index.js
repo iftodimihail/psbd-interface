@@ -28,9 +28,9 @@ class Home extends Component{
       .catch(() => this.setState({fetching: false}));
   }
 
-  handleAddModal = (id) => this.setState({showModal: true, productId: id, okText: "Adaugă în stoc", isAddToStock: true});
+  handleAddModal = (id) => this.setState({showModal: true, productId: id, okText: "Adaugă", isAddToStock: true});
 
-  handleSubtractModal = (id) => this.setState({showModal: true, productId: id, okText: "Scoate din stoc", isAddToStock: false});
+  handleSubtractModal = (id) => this.setState({showModal: true, productId: id, okText: "Scade", isAddToStock: false});
 
   handleCancel = () => this.setState({showModal: false});
 
@@ -41,7 +41,7 @@ class Home extends Component{
         postBill({
           billDate: values.billDate,
           otherPartyName: values.name,
-          billType: this.state.isAddToStock ? "incoming" : "outgoing",
+          billType: this.state.isAddToStock ? "Intrare stoc" : "Iesire stoc",
           billedItems: [
             {
               productId: this.state.productId,
@@ -82,7 +82,7 @@ class Home extends Component{
       width: '50%'
     },
     {
-      title: 'Adaugă în stoc',
+      title: 'Adaugă',
       key: 'add',
       dataIndex: 'id',
       render: (id) => <a onClick={() => this.handleAddModal(id)}><Icon type="plus-circle" /></a>,
@@ -90,7 +90,7 @@ class Home extends Component{
       width: '200px'
     },
     {
-      title: 'Scoate din stoc',
+      title: 'Scade',
       key: 'subtract',
       dataIndex: 'id',
       render: (id) => <a onClick={() => this.handleSubtractModal(id)}><Icon type="minus-circle" /></a>,
@@ -110,6 +110,7 @@ class Home extends Component{
     return(
       <LayoutWrapper>
         <Modal
+          centered
           title={this.state.isAddToStock ? "Adaugare în stoc" : "Scoatere din stoc"}
           visible={this.state.showModal}
           okText={this.state.okText}
@@ -134,7 +135,7 @@ class Home extends Component{
             </Form.Item>
             <Form.Item label="Data de facturare">
               {getFieldDecorator('billDate', {
-                rules: [{ required: true, message: 'Te rugăm să introduci data de facutrare' }],
+                rules: [{ required: true, message: 'Te rugăm să introduci data de facturare' }],
                 initialValue: moment(new Date())
               })(
                 <DatePicker
